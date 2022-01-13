@@ -1,71 +1,54 @@
 import math
-import matplotlib.pyplot as plt
 
-# Объявляем переменные
-x = []  # Координаты точек по оси X
-y = []  # Координаты точек по оси Y
-blue_x = []  # Синие точки по оси X
-blue_y = []  # Синие точки по оси Y
-red_x = []  # Красные точки по оси X
-red_y = []  # Красные точки по оси Y
+# ЗАДАНИЕ 1
+print('1 число')
+a = int(input())
+print('2 число')
+b = int(input())
+print('3число')
+c = int(input())
+print('4 число')
+d = int(input())
 
+p = (c / a) - (b**2 / ((a**2) * 3))
+q = ((2 * b**3) / (27 * a**3)) - ((b * c) / (3 * a**2)) + (d / a)
+Q = (p / 3)**3 + (q / 2)**2
+al = (- (q / 2) + math.sqrt(Q))**(1 / 3)
+bt = (- (q / 2) - math.sqrt(Q))**(1 / 3)
 
-def check(xy, xy2):
-    return math.sqrt((xy[0] - xy2[0]) ** 2 + (xy[1] - xy2[1]) ** 2) > 1
+res1 = al + bt
+res2 = - ((al + bt) / 2) + 3 * ((al - bt) / 2)
+res3 = - ((al + bt) / 2) - 3 * ((al - bt) / 2)
 
-
-def fill_points(xy):
-    # Перебираем все точки. Считаем расстояние, и если оно больше, чем around - точка синяя, если нет, то красная
-    for i in range(len(x)):
-        koord_x = x[i]
-        koord_y = y[i]
-        # Если синяя точка - суем в список синих, если красная, то в список красных, все логично
-        is_blue = check((koord_x, koord_y), (xy[0], xy[1]))
-        if is_blue:
-            blue_x.append(koord_x)
-            blue_y.append(koord_y)
-        else:
-            red_x.append(koord_x)
-            red_y.append(koord_y)
+print(f'Результаты кубического уравнения: 1-ый корень-{res1}, 2-ой корень-{res2} * i, 3-ий корень-{res3} * i.')
 
 
-# Подготавливает данные
-def prepare():
-    k_x = math.sin(math.radians(30))
-    k_y = math.sin(math.radians(60))
-
-    x_step = round(1 * k_x, 2)  # Шаг точек по X
-    y_step = round(1 * k_y, 2)  # шаг точек по Y
-
-    # нам нужно рисовать точку через одну
-    # будем считать какие точки влезают
-    o_x = 0
-    # Пока у нас o_x меньше, чем ширина графика повторяем цикл
-    count = 2  # Если четное - тогда точку нужно добавить
-    while o_x < 5:
-        o_y = 0
-        while o_y < 5:  # Пока у нас o_y меньше, чем высота графика повторяем
-            if count % 2 == 0:  # count делится на 2, значит точку добавляем
-                x.append(round(o_x, 2))
-                y.append(round(o_y, 2))
-            count += 1  # При любой итерации обновляем count.
-            # Если добавили, значит следующую не нужно добавлять. И наоборот
-            o_y += y_step
-        count += 1  # Увеличили x, значит обновляем count. Так рисуются точки
-        o_x += x_step
-
-
-# Объявляем координаты нашей зеленной точки
-x_main = 1
-y_main = 1
-
-prepare()
-fill_points((x_main, y_main))
-
-print(blue_x, blue_y, red_y, red_y)
-plt.plot(blue_x, blue_y, 'bo')  # Синие
-plt.plot(red_x, red_y, 'ro')  # Красные
-plt.plot([x_main], [y_main], 'go--')  # Наша зеленая точка
-plt.axis([0, 5, 0, 5])  # Ставит график
-plt.grid(True)  # Ставит сетку на графику
-plt.show()  # вызов метода показывает все
+# ЗАДАНИЕ 2
+# import numpy as np
+# import matplotlib.pyplot as plt
+#
+# x = np.array([0, 2, 1, 3], dtype=float)
+# y = np.array([0, 1, 2, 3], dtype=float)
+#
+#
+# def lagranz(x, y, t):
+#     z = 0
+#     for j in range(len(y)):
+#         p1 = 1
+#         p2 = 1
+#         for i in range(len(x)):
+#             if i == j:
+#                 p1 = p1 * 1
+#                 p2 = p2 * 1
+#             else:
+#                 p1 = p1 * (t - x[i])
+#                 p2 = p2 * (x[j] - x[i])
+#         z = z + y[j] * p1 / p2
+#     return z
+#
+#
+# xnew = np.linspace(np.min(x), np.max(x), 100)
+# ynew = [lagranz(x, y, i) for i in xnew]
+# plt.plot(x, y, 'o', xnew, ynew)
+# plt.grid(True)
+# plt.show()
